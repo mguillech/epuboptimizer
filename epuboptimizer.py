@@ -5,6 +5,7 @@ IMAGE_ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.bmp', '.gif', '.svg']
 TEXTFILES_ALLOWED_EXTENSIONS = ['.opf', '.html', '.xhtml', '.css']
 FONT_EXTENSIONS = ['.otf', '.ttf']
 ENCRYPTION_FILES = ['encryption.xml']
+EXCLUDE_FILES = ['mimetype', 'mimetype.jpg', 'mimetype.jpeg']
 MIMETYPES = {
     '.png': 'image/png',
     '.jpg': 'image/jpeg',
@@ -19,16 +20,20 @@ def get_files_in_directory(directory):
     images, textfiles = {}, []
     has_fonts, has_encryption = False, False
     for file_path in Path(directory).iterdir():
+        file_extension = file_path.suffix.lower()
+        if file_path.name in EXCLUDE_FILES:
+            # print("Excluding file: {}...".format(file_path.name))
+            continue
         if file_path.is_dir():
             recursive_images, recursive_textfiles = get_files_in_directory(file_path)
             images.update(recursive_images)
             textfiles.extend(recursive_textfiles)
         else:
-            if file_path.suffix.lower() in IMAGE_ALLOWED_EXTENSIONS:
+            if file_extension in IMAGE_ALLOWED_EXTENSIONS:
                 images[file_path.stem] = file_path
-            elif file_path.suffix.lower() in TEXTFILES_ALLOWED_EXTENSIONS:
+            elif file_extension in TEXTFILES_ALLOWED_EXTENSIONS:
                 textfiles.append(file_path)
-            elif file_path.suffix.lower() in FONT_EXTENSIONS:
+            elif file_extension in FONT_EXTENSIONS:
                 has_fonts = True
             elif file_path.name in ENCRYPTION_FILES:
                 has_encryption = True
