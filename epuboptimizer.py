@@ -72,8 +72,8 @@ def move_images(source_directory_images, target_directory_images, keep_source_im
             target_image_path = target_directory_images[source_image_filename]
         except KeyError:
             continue
-        # Only replace source images with smaller or equal sized target images
-        if source_image_path.stat().st_size <= target_image_path.stat().st_size:
+        # Only replace source images with smaller or equal sized target images (except for zero-sized target images)
+        if source_image_path.stat().st_size <= target_image_path.stat().st_size or target_image_path.stat().st_size == 0:
             # print("Skipping source image: {}".format(source_image_path))
             if not keep_target_image:
                 # print("Removing target image: {}".format(target_image_path))
