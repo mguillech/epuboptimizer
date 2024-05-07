@@ -3,7 +3,7 @@ from pathlib import Path
 
 IMAGE_ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.bmp', '.gif', '.svg']
 TEXTFILES_ALLOWED_EXTENSIONS = ['.opf', '.html', '.xhtml', '.css']
-FONT_EXTENSIONS = ['.otf', '.ttf']
+FONT_EXTENSIONS = ['.otf', '.ttf', '.woff']
 ENCRYPTION_FILES = ['encryption.xml']
 EXCLUDE_FILES = ['mimetype', 'mimetype.jpg', 'mimetype.jpeg']
 MIMETYPES = {
