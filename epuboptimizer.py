@@ -31,12 +31,12 @@ def get_files_in_directory(directory):
         else:
             if file_extension in IMAGE_ALLOWED_EXTENSIONS:
                 images[file_path.stem] = file_path
-            elif file_extension in TEXTFILES_ALLOWED_EXTENSIONS:
-                textfiles.append(file_path)
             elif file_extension in FONT_EXTENSIONS:
                 has_fonts = True
             elif file_path.name in ENCRYPTION_FILES:
                 has_encryption = True
+            elif file_extension in TEXTFILES_ALLOWED_EXTENSIONS:
+                textfiles.append(file_path)
     if has_fonts:
         print("WARNING: this ePub has fonts included.")
     if has_encryption:
